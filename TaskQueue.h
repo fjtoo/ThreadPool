@@ -1,3 +1,6 @@
+#ifndef TASKQUEUE_H
+#define TASKQUEUE_H
+
 #include <queue>
 #include <pthread.h>
 
@@ -27,9 +30,12 @@ private:
 public:
     TaskQueue();
     ~TaskQueue();
-    bool pushTask(callback func, void* arg);  // 向队尾压入任务
+    void pushTask(callback func, void* arg);  // 向队尾压入任务
+    void pushTask(Task task);
     Task takeTask();                          // 取出并返回队头任务
     int taskNum();                            // 队列当前任务数
 };
+
+#endif
 
 

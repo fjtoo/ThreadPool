@@ -15,6 +15,12 @@ void TaskQueue::pushTask(callback func, void* arg) {
     pthread_mutex_unlock(&m_mutex);
 }
 
+void TaskQueue::pushTask(Task task) {
+    pthread_mutex_lock(&m_mutex);
+    m_queue.push(task);
+    pthread_mutex_unlock(&m_mutex);
+}
+
 Task TaskQueue::takeTask() {
     Task temp;
     pthread_mutex_lock(&m_mutex);
