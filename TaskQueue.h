@@ -4,7 +4,7 @@
 #include <queue>
 #include <pthread.h>
 
-using callback = void(*)(void*);
+using callback = void*(*)(void*);
 
 // 任务类，即每个线程要执行的任务
 struct Task
@@ -31,7 +31,7 @@ public:
     TaskQueue();
     ~TaskQueue();
     void pushTask(callback func, void* arg);  // 向队尾压入任务
-    void pushTask(Task task);
+    void pushTask(Task& task);
     Task takeTask();                          // 取出并返回队头任务
     int taskNum();                            // 队列当前任务数
 };

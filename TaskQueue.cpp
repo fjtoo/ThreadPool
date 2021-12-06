@@ -1,4 +1,4 @@
-#include <TaskQueue.h>
+#include "TaskQueue.h"
 
 TaskQueue::TaskQueue() {
     pthread_mutex_init(&m_mutex, NULL);
@@ -9,13 +9,13 @@ TaskQueue::~TaskQueue() {
 }
 
 void TaskQueue::pushTask(callback func, void* arg) {
-    Task task(func, arg);
     pthread_mutex_lock(&m_mutex);
+    Task task(func, arg);
     m_queue.push(task);
     pthread_mutex_unlock(&m_mutex);
 }
 
-void TaskQueue::pushTask(Task task) {
+void TaskQueue::pushTask(Task& task) {
     pthread_mutex_lock(&m_mutex);
     m_queue.push(task);
     pthread_mutex_unlock(&m_mutex);
